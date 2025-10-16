@@ -64,6 +64,7 @@ def runCommand(command, detach=False):
         code = process.returncode
         return (cmd_output.decode("utf-8").strip(), cmd_err.decode("utf-8").strip(), code)
 
+
 def set_dark_palette(app):
     """Apply a Dark Fusion Theme"""
     dark_palette = QtGui.QPalette()
