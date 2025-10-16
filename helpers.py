@@ -1,5 +1,4 @@
 import os
-import subprocess
 from PySide6 import QtWidgets, QtCore
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import QFontMetrics

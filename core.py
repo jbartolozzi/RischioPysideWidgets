@@ -1,12 +1,7 @@
 import os
 import subprocess
-import re
 import sys
-import platform
-from PySide6 import QtCore
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from PySide6.QtGui import QPixmap
-from PySide6 import QtWidgets, QtCore, QtGui
+from PySide6 import QtCore, QtGui
 from PySide6.QtWidgets import QApplication
 
 def log_info(message):

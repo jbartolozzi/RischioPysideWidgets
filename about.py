@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QDialog, QVBoxLayout, QLabel, QApplication, QSizePolicy
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QPixmap
 from PySide6.QtCore import Qt, QCoreApplication
 from . import core
 
@@ -23,7 +23,7 @@ class AboutDialog(QDialog):
 
         # Display the icon in the dialog
         # The icon will be in this module's resources
-        icon_pixmap = QPixmap(core.resourcePath('RischioPysideWidgets/images/rischio.png'))
+        icon_pixmap = QPixmap(core.resourcePath('icons/rischio.png'))
         if not icon_pixmap.isNull():
             icon_label = QLabel()
             icon_label.setPixmap(icon_pixmap.scaled(64, 64, Qt.KeepAspectRatio, Qt.SmoothTransformation))
