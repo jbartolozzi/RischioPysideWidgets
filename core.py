@@ -37,14 +37,15 @@ def get_setting(key, default=None):
     log_error(f"Setting {key} not found in settings, returning default value")
     return default
 
-def runCommand(command, detach=False):
+def runCommand(command, detach=False, env=None):
     if detach:
         # Start process in detached mode
         process = subprocess.Popen(
             command,
             shell=True,
             stdout=subprocess.DEVNULL,  # Ignore output
-            stderr=subprocess.DEVNULL
+            stderr=subprocess.DEVNULL,
+            env=env
         )
         return process.pid  # Return the process ID of the detached process
     else:
@@ -53,7 +54,8 @@ def runCommand(command, detach=False):
             command,
             shell=True,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
+            env=env
         )
         cmd_output, cmd_err = process.communicate()
         code = process.returncode
