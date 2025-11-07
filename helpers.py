@@ -2,6 +2,8 @@ import os
 from PySide6 import QtWidgets, QtCore
 from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import QFontMetrics
+from PySide6.QtWidgets import QPushButton
+from PySide6.QtCore import QTimer
 from .core import runCommand, log_info, log_error
 
 
@@ -168,3 +170,86 @@ class CommandWorker(QtWidgets.QDialog):
         self.thread_run.quit()
         self.thread_run.wait()
         self.close()
+
+from PySide6.QtWidgets import QPushButton, QGraphicsDropShadowEffect
+from PySide6.QtCore import QTimer
+from PySide6.QtGui import QColor
+
+
+class BlinkButton(QPushButton):
+    def __init__(self, text: str = "", parent=None):
+        super().__init__(text, parent)
+
+        # Timer for blink animation
+        self._blink_timer = QTimer(self)
+        self._blink_timer.timeout.connect(self._toggle_effect)
+        self._blink_state = False
+
+        # Default glow configuration
+        self._glow_color = QColor("yellow")
+        self._glow_radius = 18
+
+        # Drop shadow effect (used as a glow)
+        self._effect = QGraphicsDropShadowEffect(self)
+        self._effect.setOffset(0, 0)  # Centered glow
+        self._effect.setBlurRadius(self._glow_radius)
+        self._effect.setColor(self._glow_color)
+        self._effect.setEnabled(False)
+        self.setGraphicsEffect(self._effect)
+
+    # ---------------------------
+    # Glow Control
+    # ---------------------------
+
+    def enable_glow(self, color: str = "cyan", blur_radius: int = 18):
+        """Turn on a steady glow."""
+        self._glow_color = QColor(color)
+        self._glow_radius = blur_radius
+        self._effect.setColor(self._glow_color)
+        self._effect.setBlurRadius(self._glow_radius)
+        self._effect.setEnabled(True)
+
+    def disable_glow(self):
+        """Turn off the glow."""
+        self._effect.setEnabled(False)
+
+    # ---------------------------
+    # Timed Blink
+    # ---------------------------
+
+    def blink(
+        self,
+        duration_ms: int = 2000,
+        interval_ms: int = 250,
+        color: str = "yellow",
+        blur_radius: int = 18,
+    ):
+        """Blink the glow for a given duration."""
+        if self._blink_timer.isActive():
+            self._blink_timer.stop()
+
+        # Update glow settings
+        self._glow_color = QColor(color)
+        self._glow_radius = blur_radius
+        self._effect.setColor(self._glow_color)
+        self._effect.setBlurRadius(self._glow_radius)
+
+        # Start with glow off
+        self._blink_state = False
+        self._effect.setEnabled(False)
+
+        # Begin toggling
+        self._blink_timer.start(interval_ms)
+        QTimer.singleShot(duration_ms, self._stop_blink)
+
+    def _toggle_effect(self):
+        """Internal: toggle glow state."""
+        self._blink_state = not self._blink_state
+        self._effect.setEnabled(self._blink_state)
+
+    def _stop_blink(self):
+        """Stop blinking and disable glow."""
+        if self._blink_timer.isActive():
+            self._blink_timer.stop()
+        self._effect.setEnabled(False)
+
