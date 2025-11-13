@@ -4,7 +4,7 @@ from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import QFontMetrics
 from PySide6.QtWidgets import QPushButton
 from PySide6.QtCore import QTimer
-from .core import runCommand, log_info, log_error
+from .core import runCommand
 
 
 def notify_user(title, message):

@@ -4,23 +4,23 @@ import sys
 from PySide6 import QtCore, QtGui
 from PySide6.QtWidgets import QApplication
 
-def log_info(message, module=None):
-    prefix = f"[{module}]" if module else ""
-    print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[INFO]: {message}")
+# def log_info(message, module=None):
+#     prefix = f"[{module}]" if module else ""
+#     print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[INFO]: {message}")
 
-def log_error(message, module=None):
-    prefix = f"[{module}]" if module else ""
-    print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[ERROR]: {message}", file=sys.stderr)
+# def log_error(message, module=None):
+#     prefix = f"[{module}]" if module else ""
+#     print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[ERROR]: {message}", file=sys.stderr)
 
-def log_debug(message, module=None):
-    prefix = f"[{module}]" if module else ""
-    app = QApplication.instance()
-    if app and app.property("debug"):
-        print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[DEBUG]: {message}")
+# def log_debug(message, module=None):
+#     prefix = f"[{module}]" if module else ""
+#     app = QApplication.instance()
+#     if app and app.property("debug"):
+#         print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[DEBUG]: {message}")
 
-def log_warning(message, module=None):
-    prefix = f"[{module}]" if module else ""
-    print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[WARNING]: {message}")
+# def log_warning(message, module=None):
+#     prefix = f"[{module}]" if module else ""
+#     print(f"[{QtCore.QCoreApplication.applicationName()}]{prefix}[WARNING]: {message}")
 
 def resourcePath(relative_path):
     if hasattr(sys, '_MEIPASS'):
