@@ -39,7 +39,7 @@ class AboutDialog(QDialog):
             layout.addWidget(icon_label)
 
         # App Version
-        version_label = QLabel("Version:" + QCoreApplication.applicationVersion())
+        version_label = QLabel("Version: " + QCoreApplication.applicationVersion())
         version_label.setAlignment(Qt.AlignCenter)
         layout.addWidget(version_label)
 
