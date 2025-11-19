@@ -38,15 +38,19 @@ def get_setting(key, default=None):
     settings = get_app_settings()
     if key in settings.allKeys():
         return settings.value(key)
-    log_error(f"Setting {key} not found in settings, returning default value")
+    print(f"Setting {key} not found in settings, returning default value")
     return default
 
 def runCommand(command, detach=False, env=None):
+    # Determine if we need shell based on command type
+    # Use shell=True for strings, shell=False for lists (safer for paths with spaces)
+    use_shell = isinstance(command, str)
+
     if detach:
         # Start process in detached mode
         process = subprocess.Popen(
             command,
-            shell=True,
+            shell=use_shell,
             stdout=subprocess.DEVNULL,  # Ignore output
             stderr=subprocess.DEVNULL,
             env=env
@@ -56,7 +60,7 @@ def runCommand(command, detach=False, env=None):
         # Normal execution (waits for completion)
         process = subprocess.Popen(
             command,
-            shell=True,
+            shell=use_shell,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             env=env
